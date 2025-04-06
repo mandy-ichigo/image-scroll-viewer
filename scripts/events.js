@@ -18,7 +18,11 @@ export function setupEvents() {
   
   backBtn.addEventListener('click', () => {
     feed.innerHTML = '';
+    pageIndicator.style.display = 'none';
     folderList.style.display = 'flex';
     backBtn.style.display = 'none';
+    console.log('Back button clicked');
+    
+
   });
 }

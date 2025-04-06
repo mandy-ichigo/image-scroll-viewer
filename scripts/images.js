@@ -35,7 +35,7 @@ export async function loadImagesFromSubfolder(folderHandle) {
 
   slides = document.querySelectorAll('.image-slide');
   document.documentElement.style.setProperty('--image-width', widthSlider.value + 'px');
-  updatePageIndicator();
+  updatePageIndicator(0, slides.length); // after loading new images
 }
 
 export function scrollToPage(index) {
@@ -44,8 +44,8 @@ export function scrollToPage(index) {
   }
 }
 
-export function updatePageIndicator() {
-  pageIndicator.textContent = `Page ${currentIndex + 1} / ${slides.length}`;
+export function updatePageIndicator(i_currentIndex, i_totalSlides) {
+  pageIndicator.textContent = `Page ${i_currentIndex + 1} / ${i_totalSlides}`;
 }
 
 export function setupScrollTracking() {
@@ -59,6 +59,6 @@ export function setupScrollTracking() {
     });
     currentIndex = foundIndex;
     window.currentIndex = foundIndex; // Store current index in window object
-    updatePageIndicator();
+    updatePageIndicator(currentIndex, slides.length);
   });
 }

@@ -1,6 +1,6 @@
 // folders.js
-import { folderList, feed, backBtn } from './domRefs.js';
-import { loadImagesFromSubfolder } from './images.js';
+import { folderList, feed, backBtn, pageIndicator } from './domRefs.js';
+import { loadImagesFromSubfolder,updatePageIndicator } from './images.js';
 
 export function setupFolderPicker() {
   document.getElementById('folderPickerBtn').addEventListener('click', async () => {
@@ -77,6 +77,7 @@ export async function selectRootFolder(rootDirHandle) {
     }, ['']).join('<br>');
 
     label.onclick = async () => {
+      pageIndicator.style.display = 'block';
       window.currentFolderName = entry.name;
       window.currentFolderHandle = entry;
       window.currentRootName = rootDirHandle.name;
@@ -89,7 +90,7 @@ export async function selectRootFolder(rootDirHandle) {
     div.appendChild(label);
     folderList.appendChild(div);
   }
-
+  updatePageIndicator(0, 0); // Reset page indicator
   // ✅ Show bookmark button now that root is selected
   const bookmarkBtn = document.getElementById('bookmarkBtn');
   if (bookmarkBtn) bookmarkBtn.style.display = 'inline-block';

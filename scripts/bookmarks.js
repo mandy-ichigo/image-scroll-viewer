@@ -41,6 +41,8 @@ function renderBookmarks() {
     const span = document.createElement('span');
     span.textContent = `${bm.name} (Page ${bm.index + 1})`;
     span.onclick = async () => {
+      pageIndicator.style.display = 'block';
+
       if (!window.currentRootHandle) {
         try {
           // Try using previously selected root first
