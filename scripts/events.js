@@ -1,5 +1,5 @@
 // events.js
-import { folderPickerBtn, backBtn, feed, widthSlider } from './domRefs.js';
+import { folderPickerBtn, backBtn, feed, widthSlider, folderList } from './domRefs.js';
 import { updatePageIndicator } from './images.js';
 
 export function setupEvents() {
@@ -17,4 +17,10 @@ export function setupEvents() {
   });
 
   feed.addEventListener('scroll', updatePageIndicator);
+
+  backBtn.addEventListener('click', () => {
+    feed.innerHTML = '';
+    folderList.style.display = 'flex';
+    backBtn.style.display = 'none';
+  });
 }
