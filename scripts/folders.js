@@ -6,6 +6,7 @@ export function setupFolderPicker() {
   document.getElementById('folderPickerBtn').addEventListener('click', async () => {
     try {
       const rootHandle = await window.showDirectoryPicker();
+      window.currentRootHandle = rootHandle;
       await selectRootFolder(rootHandle);
     } catch (err) {
       console.error('Error picking folder:', err);
@@ -53,7 +54,8 @@ export async function selectRootFolder(rootDirHandle) {
     for await (const fileEntry of entry.values()) {
       if (fileEntry.kind === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(fileEntry.name)) {
         const file = await fileEntry.getFile();
-        thumb.src = URL.createObjectURL(file);
+        const url = URL.createObjectURL(file);
+        thumb.src = url;
         break;
       }
     }
@@ -78,13 +80,18 @@ export async function selectRootFolder(rootDirHandle) {
       window.currentFolderName = entry.name;
       window.currentFolderHandle = entry;
       window.currentRootName = rootDirHandle.name;
-      await loadImagesFromSubfolder(entry);
       folderList.style.display = 'none';
       backBtn.style.display = 'inline-block';
+      await loadImagesFromSubfolder(entry);
     };
 
     div.appendChild(thumb);
     div.appendChild(label);
     folderList.appendChild(div);
   }
+
+  // ✅ Show bookmark button now that root is selected
+  const bookmarkBtn = document.getElementById('bookmarkBtn');
+  if (bookmarkBtn) bookmarkBtn.style.display = 'inline-block';
+  document.getElementById('bookmarkBtn').style.display = 'inline-block';
 }

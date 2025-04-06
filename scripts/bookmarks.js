@@ -3,6 +3,12 @@ import { bookmarkMenu, backBtn, folderList } from './domRefs.js';
 import { loadImagesFromSubfolder, scrollToPage } from './images.js';
 
 export function setupBookmarks() {
+  const bookmarkBtn = document.getElementById('bookmarkBtn');
+  if (!window.currentRootHandle) {
+    bookmarkBtn.style.display = 'none';
+  } else {
+    bookmarkBtn.style.display = 'inline-block';
+  }
   document.getElementById('bookmarkBtn').addEventListener('click', () => {
     bookmarkMenu.style.display = bookmarkMenu.style.display === 'flex' ? 'none' : 'flex';
     renderBookmarks();
@@ -36,8 +42,16 @@ function renderBookmarks() {
     span.textContent = `${bm.name} (Page ${bm.index + 1})`;
     span.onclick = async () => {
       if (!window.currentRootHandle) {
-        alert('Please select a root folder first.');
-        return;
+        try {
+          // Try using previously selected root first
+        if (!window.currentRootHandle) {
+          alert('Please select a root folder first using the Open button.');
+          return;
+        }
+        } catch (err) {
+          alert('Folder access is required to load this bookmark.');
+          return;
+        }
       }
       const subfolderHandle = await window.currentRootHandle.getDirectoryHandle(bm.name).catch(() => null);
       if (!subfolderHandle) {

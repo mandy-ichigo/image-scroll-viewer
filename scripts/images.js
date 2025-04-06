@@ -58,6 +58,7 @@ export function setupScrollTracking() {
       }
     });
     currentIndex = foundIndex;
+    window.currentIndex = foundIndex; // Store current index in window object
     updatePageIndicator();
   });
 }
