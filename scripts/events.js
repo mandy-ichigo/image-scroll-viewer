@@ -15,9 +15,7 @@ export function setupEvents() {
   widthSlider.addEventListener('input', () => {
     document.documentElement.style.setProperty('--image-width', widthSlider.value + 'px');
   });
-
-  feed.addEventListener('scroll', updatePageIndicator);
-
+  
   backBtn.addEventListener('click', () => {
     feed.innerHTML = '';
     folderList.style.display = 'flex';
