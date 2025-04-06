@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Image Viewer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="topButtons">
+    <button class="icon-button" id="backBtn" style="display: none;">🔙 Back</button>
+    <button class="icon-button" id="folderPickerBtn">📂 Open</button>
+    <button class="icon-button" id="bookmarkBtn">🔖 Bookmark</button>
+  </div>
+
+  <div id="bookmarkMenu"></div>
+  <div id="folderList"></div>
+  <div id="pageIndicator">Page 0 / 0</div>
+
+  <div id="scaleControl">
+    <label for="widthSlider">Scale</label>
+    <span class="scale-symbol">−</span>
+    <input type="range" id="widthSlider" min="300" max="1200" value="720" />
+    <span class="scale-symbol">+</span>
+  </div>
+
+  <div class="feed" id="feed"></div>
+
+  <!-- Load your modular JS -->
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
