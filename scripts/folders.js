@@ -75,6 +75,9 @@ export async function selectRootFolder(rootDirHandle) {
     }, ['']).join('<br>');
 
     label.onclick = async () => {
+      window.currentFolderName = entry.name;
+      window.currentFolderHandle = entry;
+      window.currentRootName = rootDirHandle.name;
       await loadImagesFromSubfolder(entry);
       folderList.style.display = 'none';
       backBtn.style.display = 'inline-block';
